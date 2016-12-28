@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1482943399 source:d:\florin\1.1\introducere in programare\proiect\blackjack\main.cpp
+	"Blackjack.h"
+
+1482943357 d:\florin\1.1\introducere in programare\proiect\blackjack\blackjack.h
+	<iostream>
+	<stdlib.h>
+
