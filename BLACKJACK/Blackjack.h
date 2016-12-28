@@ -10,3 +10,4 @@ struct Card
 };
 bool CheckCard(unsigned int Card);
 unsigned int RandomCard();
+unsigned int VerificareSimbol(unsigned int Card);
