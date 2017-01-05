@@ -2,6 +2,8 @@
 #include<time.h>
 #include<stdlib.h>
 #include<windows.h>
+#include<stdio.h>
+#include<string>
 #define MAX_CARTE 53
 using namespace std;
 

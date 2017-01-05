@@ -50,7 +50,8 @@ void CreareCarte()
 }
 unsigned int menu ()
 {
-     unsigned int alegere;
+    int alegere;
+    char depasire[100];
      system("color 02");
     cout<<"#######################"<<endl;
     cout<<"#######Blackjack#######"<<endl;
@@ -59,12 +60,23 @@ unsigned int menu ()
     cout<<" 2. Player vs Computer"<<endl;
     cout<<" 3. Regulile jocului"<<endl;
     cout<<" 4. Iesire din joc "<<endl<<endl;
-    cout<<" Alegere ";
-    cin>>alegere;
+    cout<<" Alegere "<<endl;
+    cin>>depasire;
+    if(strlen(depasire)>1)
+        alegere=0;
+    else
+        if(depasire[0]-'0'>=1&&depasire[0]-'0'<=4)
+            alegere=depasire[0]-'0';
+        else alegere=0;
     while (alegere!=1&&alegere!=2&&alegere!=3&&alegere!=4)
     {
-        cout<<" Alegere ";
-        cin>>alegere;
+        cin>>depasire;
+         if(strlen(depasire)>1)
+        alegere=0;
+    else
+        if(depasire[0]-'0'>=1&&depasire[0]-'0'<=4)
+            alegere=depasire[0]-'0';
+        else alegere=0;
     }
 
     for (int i=0;i<=7;i++)
@@ -77,6 +89,19 @@ unsigned int menu ()
 }
 int main ()
 {
-    cout<<menu();
+  unsigned int alegere;
+  alegere=menu();
+  while(alegere!=4)
+  {
+    switch(alegere)
+    {
+        case 1 :{ cout<<1; return 0;}
+        break;
+        case 2: {cout<<2; return 0;}
+        break;
+        case 3: {cout<<3; return 0;}
+        break;
+    }
+  }
 return 0;
 }
