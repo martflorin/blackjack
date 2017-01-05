@@ -1,7 +1,10 @@
 #include<iostream>
+#include<time.h>
 #include<stdlib.h>
+#include<windows.h>
 #define MAX_CARTE 53
 using namespace std;
+
 unsigned int Pachet[MAX_CARTE];
 struct Carte
 {
@@ -13,3 +16,4 @@ bool VerificareCarte(unsigned int Carte);
 unsigned int CarteAleatorie();
 unsigned int VerificareSimbol(unsigned int Carte);
 void CreareCarte();
+unsigned int menu ();

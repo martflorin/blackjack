@@ -12,6 +12,7 @@ bool VerificareCarte(unsigned int Carte)
 unsigned int CarteAleatorie()
 {
     unsigned int Carte ;
+     srand(time(NULL));
      Carte=rand()%52+1;
    while(VerificareCarte(Carte)==0)
     Carte=rand()%52+1;
@@ -47,7 +48,35 @@ void CreareCarte()
             CARTI[i].numar=Numar%13;
     }
 }
+unsigned int menu ()
+{
+     unsigned int alegere;
+     system("color 02");
+    cout<<"#######################"<<endl;
+    cout<<"#######Blackjack#######"<<endl;
+    cout<<"#######################"<<endl<<endl;
+    cout<<" 1. Player vs Player"<<endl;
+    cout<<" 2. Player vs Computer"<<endl;
+    cout<<" 3. Regulile jocului"<<endl;
+    cout<<" 4. Iesire din joc "<<endl<<endl;
+    cout<<" Alegere ";
+    cin>>alegere;
+    while (alegere!=1&&alegere!=2&&alegere!=3&&alegere!=4)
+    {
+        cout<<" Alegere ";
+        cin>>alegere;
+    }
+
+    for (int i=0;i<=7;i++)
+    {
+        cout<<"*";
+        Sleep(500);
+    }
+    system("CLS");
+    return alegere;
+}
 int main ()
 {
-    return 0;
+    cout<<menu();
+return 0;
 }
