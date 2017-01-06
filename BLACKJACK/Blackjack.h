@@ -14,8 +14,21 @@ struct Carte
      char simbol;
 };
 Carte CARTI[100];
+struct Player
+{
+    char username[40];
+    int gold=1000;
+    unsigned int bet;
+};
+Player jucator1;
+Player jucator2;
 bool VerificareCarte(unsigned int Carte);
 unsigned int CarteAleatorie();
 unsigned int VerificareSimbol(unsigned int Carte);
 void CreareCarte();
 unsigned int menu ();
+void ReguliJoc();
+unsigned int playerVSplayer();
+//char VerificareUsername (char nume[]);
+unsigned int Miza();
+

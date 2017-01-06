@@ -79,13 +79,88 @@ unsigned int menu ()
         else alegere=0;
     }
 
-    for (int i=0;i<=7;i++)
+    for (int i=0;i<=5;i++)
     {
-        cout<<"*";
+        cout<<"#";
         Sleep(500);
     }
     system("CLS");
     return alegere;
+}
+void ReguliJoc()
+{
+    cout<<"blaaaaaablalbaalbalbalbalbalalbblal"<<endl;
+    cout<<"Regulile jocului sunt blalabalbalbalbasflasflssl"<<endl;
+    cout<<"dfgdfgdfbdfbdfgdbdfhdhddhdhfhtftft";cout<<endl<<endl;
+    system("PAUSE");
+    system("CLS");
+}
+/*char VerificareUsername(char nume[])
+{
+     unsigned int parcurgere,i;
+    for(parcurgere=0;parcurgere<strlen(nume);parcurgere++)
+        if(nume[parcurgere]==' ')
+        {
+            i=parcurgere;
+            while(i<strlen(nume)-1)
+            {
+                nume[i]=nume[i+1];
+                i++;
+            }
+            parcurgere--;
+        }
+}
+*/
+unsigned int Miza()
+{
+    int i=0;
+    bool ok=1;
+    char miza[100];
+    unsigned int bet=0;
+    cin>>miza;
+    while (ok)
+    {
+        if(i==strlen(miza)-1&&miza[i]>47&&miza[i]<58)
+            ok=0;
+        if (i<strlen(miza))
+            if(miza[i]<48||miza[i]>57)
+        {
+            cin>>miza;
+            i=0;
+        }
+        else i++;
+    }
+    for(i=0;i<strlen(miza);i++)
+        bet=bet*10+miza[i]-'0';
+    return bet;
+
+}
+unsigned int playerVSplayer()
+{
+    unsigned int miza;
+    cout<<"Username jucator 1(fara spatii): ";
+    cin>>jucator1.username;
+    //jucator1.username=VerificareUsername(jucator1.username);
+    cout<<endl;
+    cout<<"Username jucator 2(fara spatii): ";
+    cin>>jucator2.username;
+    cout<<endl;
+    cout<<"Miza "<<jucator1.username<<": ";
+    jucator1.bet=Miza();
+    if(jucator1.bet>jucator1.gold)
+        jucator1.bet=jucator1.gold;
+    cout<<"Miza "<<jucator2.username<<": ";
+    jucator2.bet=Miza();
+    if(jucator2.bet>jucator2.gold)
+        jucator2.bet=jucator2.gold;
+    if(jucator1.bet<jucator2.bet)
+        miza=jucator1.bet;
+    else
+         miza=jucator2.bet;
+    system("PAUSE");
+    system("CLS");
+    return 0;
+
 }
 int main ()
 {
@@ -95,11 +170,11 @@ int main ()
   {
     switch(alegere)
     {
-        case 1 :{ cout<<1; return 0;}
+        case 1 : {playerVSplayer(); alegere=menu();}
         break;
         case 2: {cout<<2; return 0;}
         break;
-        case 3: {cout<<3; return 0;}
+        case 3: { ReguliJoc(); alegere=menu();}
         break;
     }
   }
