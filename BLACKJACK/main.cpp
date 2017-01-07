@@ -150,7 +150,7 @@ bool hitstay()
         return 0;
 
 }
-unsigned int afisarerezultat( unsigned int miza, unsigned int parcurgere, unsigned int retparcurgere, unsigned int bj, unsigned int sumacartilor, unsigned int sumajuc2)
+void afisarerezultat( unsigned int miza, unsigned int parcurgere, unsigned int retparcurgere, unsigned int bj, unsigned int sumacartilor, unsigned int sumajuc2)
 {
     unsigned int castigator,i;
     if (bj==1)
@@ -219,6 +219,65 @@ unsigned int afisarerezultat( unsigned int miza, unsigned int parcurgere, unsign
     cout<<"Player "<<jucator1.username<<" "<<jucator1.gold<<"$"<<endl;
     cout<<"Player "<<jucator2.username<<" "<<jucator2.gold<<"$";
     cout<<endl;
+    for(int i=0;i<=52;i++)
+        Pachet[i]=0;
+}
+unsigned int menu2()
+{
+    int alegere2;
+    unsigned int miza;
+     char depasire[100];
+     system("color 02");
+    cout<<"1. Continuare"<<endl;
+    cout<<"2. Meniul principal"<<endl;
+    cout<<"3. Iesire"<<endl;
+     cin>>depasire;
+    if(strlen(depasire)>1)
+        alegere2=0;
+    else
+        if(depasire[0]-'0'>=1&&depasire[0]-'0'<=3)
+            alegere2=depasire[0]-'0';
+        else alegere2=0;
+    while (alegere2!=1&&alegere2!=2&&alegere2!=3)
+    {
+        cin>>depasire;
+         if(strlen(depasire)>1)
+        alegere2=0;
+    else
+        if(depasire[0]-'0'>=1&&depasire[0]-'0'<=4)
+            alegere2=depasire[0]-'0';
+        else alegere2=0;
+    }
+    system("CLS");
+    if(alegere2==1)
+    {
+        if(jucator1.gold==0||jucator2.gold==0) jucator1.gold=jucator2.gold=1000;
+        cout<<"Miza("<<jucator1.gold<<") "<<jucator1.username<<": ";
+        jucator1.bet=Miza();
+        if(jucator1.bet>jucator1.gold)
+            jucator1.bet=jucator1.gold;
+        cout<<"Miza("<<jucator2.gold<<") "<<jucator2.username<<": ";
+        jucator2.bet=Miza();
+        if(jucator2.bet>jucator2.gold)
+            jucator2.bet=jucator2.gold;
+        if(jucator1.bet<jucator2.bet)
+            miza=jucator1.bet;
+        else
+            miza=jucator2.bet;
+            cout<<"Miza jocului este->"<<miza<<endl;
+        system("PAUSE");
+        system("CLS");
+        partida(miza);
+    }
+    else
+        if(alegere2==2)
+        {jucator1.gold=jucator2.gold=1000; return menu();}
+    else
+    if (alegere2==3)
+    {   alegere=4;
+        return alegere;
+    }
+
 }
 void partida(unsigned int miza)
 {
@@ -347,6 +406,7 @@ void partida(unsigned int miza)
     system("CLS");
 
     afisarerezultat(miza,parcurgere,retparcurgere,bj,sumacartilor,sumajuc2);
+    menu2();
 }
 unsigned int playerVSplayer()
 {
@@ -374,21 +434,18 @@ unsigned int playerVSplayer()
     system("PAUSE");
     system("CLS");
    partida(miza);
-
-    system("PAUSE");
-    system("CLS");
-    return 0;
+    return alegere;
 
 }
 int main ()
 {
-  unsigned int alegere;
+
   alegere=menu();
   while(alegere!=4)
   {
     switch(alegere)
     {
-        case 1 : {playerVSplayer(); alegere=menu();}
+        case 1 : playerVSplayer();
         break;
         case 2: {cout<<2; return 0;}
         break;

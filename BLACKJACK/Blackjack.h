@@ -8,6 +8,7 @@
 using namespace std;
 
 unsigned int Pachet[MAX_CARTE];
+ unsigned int alegere;
 struct Carte
 {
      unsigned int numar ;
@@ -33,5 +34,6 @@ unsigned int playerVSplayer();
 unsigned int Miza();
 void partida(unsigned int miza);
 bool hitstay();
- unsigned int afisarerezultat( unsigned int miza, unsigned int parcurgere, unsigned int retparcurgere, unsigned int bj, unsigned int sumacartilor, unsigned int sumajuc2);
+void afisarerezultat( unsigned int miza, unsigned int parcurgere, unsigned int retparcurgere, unsigned int bj, unsigned int sumacartilor, unsigned int sumajuc2);
+unsigned int menu2();
 
