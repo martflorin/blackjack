@@ -31,4 +31,7 @@ void ReguliJoc();
 unsigned int playerVSplayer();
 //char VerificareUsername (char nume[]);
 unsigned int Miza();
+void partida(unsigned int miza);
+bool hitstay();
+ unsigned int afisarerezultat( unsigned int miza, unsigned int parcurgere, unsigned int retparcurgere, unsigned int bj, unsigned int sumacartilor, unsigned int sumajuc2);
 

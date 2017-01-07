@@ -60,7 +60,7 @@ unsigned int menu ()
     cout<<" 2. Player vs Computer"<<endl;
     cout<<" 3. Regulile jocului"<<endl;
     cout<<" 4. Iesire din joc "<<endl<<endl;
-    cout<<" Alegere "<<endl;
+    cout<<" Alegere: ";
     cin>>depasire;
     if(strlen(depasire)>1)
         alegere=0;
@@ -77,12 +77,6 @@ unsigned int menu ()
         if(depasire[0]-'0'>=1&&depasire[0]-'0'<=4)
             alegere=depasire[0]-'0';
         else alegere=0;
-    }
-
-    for (int i=0;i<=5;i++)
-    {
-        cout<<"#";
-        Sleep(500);
     }
     system("CLS");
     return alegere;
@@ -135,6 +129,225 @@ unsigned int Miza()
     return bet;
 
 }
+bool hitstay()
+{
+    cout<<"hit(h) sau stay(s): ";
+    char hitorstay[30];
+    bool ok=1;
+    cin>>hitorstay;
+    while(ok)
+    {
+        while (strlen(hitorstay)>1)
+            cin>>hitorstay;
+        if(hitorstay[0]=='h'||hitorstay[0]=='s')
+            ok=0;
+        else
+            cin>>hitorstay;
+    }
+    if(hitorstay[0]=='h')
+        return 1;
+    else
+        return 0;
+
+}
+unsigned int afisarerezultat( unsigned int miza, unsigned int parcurgere, unsigned int retparcurgere, unsigned int bj, unsigned int sumacartilor, unsigned int sumajuc2)
+{
+    unsigned int castigator,i;
+    if (bj==1)
+        castigator=1;//1
+    else
+        if (bj==2) castigator=3;//remiza
+        else
+            if(bj==3) castigator=2; //2
+            else
+            {
+                if(sumacartilor==sumajuc2) castigator=3;
+                else
+                    if(sumacartilor>21&&sumajuc2<22) castigator=2;
+                    else
+                    if  (sumacartilor<22&&sumajuc2>21) castigator=1;
+                    else
+                        if (sumacartilor<22&&sumajuc2<22&&sumacartilor>sumajuc2) castigator=1;
+                        else
+                            if (sumacartilor<22&&sumajuc2<22&&sumacartilor<sumajuc2) castigator=2;
+                            else
+                                if (sumacartilor>21&&sumajuc2>21) castigator=3;
+
+            }
+    cout<<"Player "<<jucator1.username<<endl;
+    for(i=0;i<=parcurgere;i++)
+    {
+        cout<<CARTI[i].numar<<CARTI[i].simbol<<"   ";
+    }
+    cout<<"("<<sumacartilor<<")";
+    cout<<endl<<endl<<"Player "<<jucator2.username<<endl;
+    for(i;i<=retparcurgere;i++)
+    {
+        cout<<CARTI[i].numar<<CARTI[i].simbol<<"   ";
+    }
+    cout<<"("<<sumajuc2<<")"<<endl<<endl;
+    if(castigator==1&&bj==1)
+    {
+        cout<<"Castigatorul este "<<jucator1.username<<"!"<<" BLACKJACK";
+        jucator1.gold+=miza;
+        jucator2.gold-=miza;
+    }
+    else
+        if(castigator==1)
+        {
+            cout<<"Castigatorul este "<<jucator1.username<<"!";
+            jucator1.gold+=miza;
+            jucator2.gold-=miza;
+        }
+        else
+            if (castigator==2&&bj==3)
+            {
+                cout<<"Castigatorul este "<<jucator2.username<<"!"<<" BLACKJACK";
+                jucator1.gold-=miza;
+                jucator2.gold+=miza;
+            }
+            else
+                if(castigator==2)
+                 {
+                    cout<<"Castigatorul este "<<jucator2.username<<"!";
+                    jucator1.gold-=miza;
+                    jucator2.gold+=miza;
+                }
+                else
+                    cout<<"REMIZA!";
+    cout<<endl<<endl;
+    cout<<"Player "<<jucator1.username<<" "<<jucator1.gold<<"$"<<endl;
+    cout<<"Player "<<jucator2.username<<" "<<jucator2.gold<<"$";
+    cout<<endl;
+}
+void partida(unsigned int miza)
+{
+    CreareCarte();
+    unsigned int sumacartilor=0,nrdeasi=0,bj=0,parcurgere=0,ok,i,retparcurgere,sumajuc2=0,j,retinere;
+    cout<<"####"<<jucator1.username<<"####"<<endl<<endl<<endl;
+    cout<<CARTI[parcurgere].numar<<CARTI[parcurgere].simbol<<"   ";
+    cout<<CARTI[parcurgere+1].numar<<CARTI[parcurgere+1].simbol<<"   (";
+    if(CARTI[parcurgere].numar>10)
+        sumacartilor=10;
+    else
+        if(CARTI[parcurgere].numar==1)
+        {
+            sumacartilor=11;
+            nrdeasi++;
+        }
+        else
+            sumacartilor=CARTI[parcurgere].numar;
+    if(CARTI[parcurgere+1].numar>10)
+        sumacartilor=sumacartilor+10;
+    else
+        if(CARTI[parcurgere+1].numar==1)
+        {
+            sumacartilor=sumacartilor+11;
+            nrdeasi++;
+        }
+        else
+            sumacartilor=sumacartilor+CARTI[parcurgere+1].numar;
+        if(sumacartilor==21) bj++;
+        parcurgere++;
+        cout<<sumacartilor<<")"<<endl;;
+        if(bj==0)
+        {
+            ok=hitstay();
+            while(ok)
+            {
+                nrdeasi=0;
+                sumacartilor=0;
+                parcurgere++;
+                for(i=0;i<=parcurgere;i++)
+                {
+                    cout<<CARTI[i].numar<<CARTI[i].simbol<<"   ";
+                    if(CARTI[i].numar>10)
+                        sumacartilor=sumacartilor+10;
+                    else
+                        if(CARTI[i].numar==1)
+                        {
+                            sumacartilor=sumacartilor+11;
+                            nrdeasi++;
+                        }
+                            else
+                                sumacartilor=sumacartilor+CARTI[i].numar;
+                }
+                while(sumacartilor>21&&nrdeasi>0)
+                {
+                   sumacartilor=sumacartilor-10;
+                   nrdeasi--;
+                }
+                cout<<"("<<sumacartilor<<")"<<endl;
+                if(sumacartilor>21)
+                    ok=0;
+                else
+                    ok=hitstay();
+            }
+        }
+    system("PAUSE");
+    system("CLS");
+    cout<<"####"<<jucator2.username<<"####"<<endl<<endl<<endl;
+    nrdeasi=0;
+    retparcurgere=parcurgere+2;
+    retinere=parcurgere+1;
+    for(j=retinere;j<=retinere+1;j++)
+    {
+        cout<<CARTI[j].numar<<CARTI[j].simbol<<"   ";
+        if(CARTI[j].numar>10)
+            sumajuc2=sumajuc2+10;
+        else
+            if(CARTI[j].numar==1)
+            {
+                sumajuc2=sumajuc2+11;
+                nrdeasi++;
+            }
+            else
+                sumajuc2=sumajuc2+CARTI[j].numar;
+    }
+    cout<<"("<<sumajuc2<<")"<<endl;
+    if(sumajuc2==21&&bj==1) bj++;
+    else
+        if(sumajuc2==21) bj=3;
+    if(bj==0||bj==1)
+    {
+        ok=hitstay();
+        while(ok)
+        {
+            sumajuc2=0;
+            retparcurgere++;
+            nrdeasi=0;
+            for(j=retinere;j<=retparcurgere;j++)
+            {
+                cout<<CARTI[j].numar<<CARTI[j].simbol<<"   ";
+                if(CARTI[j].numar>10)
+                    sumajuc2=sumajuc2+10;
+                else
+                    if(CARTI[j].numar==1)
+                    {
+                        sumajuc2=sumajuc2+11;
+                        nrdeasi++;
+                    }
+                    else
+                        sumajuc2=sumajuc2+CARTI[j].numar;
+            }
+            while(sumajuc2>21&&nrdeasi>0)
+            {
+                sumajuc2=sumajuc2-10;
+                nrdeasi--;
+            }
+            cout<<"("<<sumajuc2<<")"<<endl;
+            if(sumajuc2>21)
+                ok=0;
+            else
+                ok=hitstay();
+        }
+    }
+    cout<<endl;
+    system("PAUSE");
+    system("CLS");
+
+    afisarerezultat(miza,parcurgere,retparcurgere,bj,sumacartilor,sumajuc2);
+}
 unsigned int playerVSplayer()
 {
     unsigned int miza;
@@ -145,11 +358,11 @@ unsigned int playerVSplayer()
     cout<<"Username jucator 2(fara spatii): ";
     cin>>jucator2.username;
     cout<<endl;
-    cout<<"Miza "<<jucator1.username<<": ";
+    cout<<"Miza("<<jucator1.gold<<") "<<jucator1.username<<": ";
     jucator1.bet=Miza();
     if(jucator1.bet>jucator1.gold)
         jucator1.bet=jucator1.gold;
-    cout<<"Miza "<<jucator2.username<<": ";
+    cout<<"Miza("<<jucator2.gold<<") "<<jucator2.username<<": ";
     jucator2.bet=Miza();
     if(jucator2.bet>jucator2.gold)
         jucator2.bet=jucator2.gold;
@@ -157,6 +370,11 @@ unsigned int playerVSplayer()
         miza=jucator1.bet;
     else
          miza=jucator2.bet;
+    cout<<"Miza jocului este->"<<miza<<endl;
+    system("PAUSE");
+    system("CLS");
+   partida(miza);
+
     system("PAUSE");
     system("CLS");
     return 0;
