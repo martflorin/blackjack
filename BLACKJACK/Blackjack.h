@@ -35,5 +35,8 @@ unsigned int Miza();
 void partida(unsigned int miza);
 bool hitstay();
 void afisarerezultat( unsigned int miza, unsigned int parcurgere, unsigned int retparcurgere, unsigned int bj, unsigned int sumacartilor, unsigned int sumajuc2);
-unsigned int menu2();
+unsigned int menu2(bool ok);
+unsigned int playerVScomputer ();
+void partidavscomputer (unsigned int miza);
+void rezultat(unsigned int miza, unsigned int parcurgere,unsigned int retparcurgere,unsigned int bj, unsigned int sumacartilor,unsigned int sumacomp);
 
