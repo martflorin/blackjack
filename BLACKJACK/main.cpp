@@ -51,7 +51,7 @@ void CreareCarte()
 unsigned int menu ()
 {
     int alegere;
-    char depasire[100];
+    char depasire[1000];
      system("color 02");
     cout<<"#######################"<<endl;
     cout<<"#######Blackjack#######"<<endl;
@@ -61,7 +61,7 @@ unsigned int menu ()
     cout<<" 3. Regulile jocului"<<endl;
     cout<<" 4. Iesire din joc "<<endl<<endl;
     cout<<" Alegere: ";
-    cin>>depasire;
+    gets(depasire);
     if(strlen(depasire)>1)
         alegere=0;
     else
@@ -70,7 +70,7 @@ unsigned int menu ()
         else alegere=0;
     while (alegere!=1&&alegere!=2&&alegere!=3&&alegere!=4)
     {
-        cin>>depasire;
+       gets(depasire);
          if(strlen(depasire)>1)
         alegere=0;
     else
@@ -83,35 +83,32 @@ unsigned int menu ()
 }
 void ReguliJoc()
 {
-    cout<<"blaaaaaablalbaalbalbalbalbalalbblal"<<endl;
-    cout<<"Regulile jocului sunt blalabalbalbalbasflasflssl"<<endl;
-    cout<<"dfgdfgdfbdfbdfgdbdfhdhddhdhfhtftft";cout<<endl<<endl;
+    cout<<"Blackjack este un joc de carti care se joaca cu un pachet standard de 52 de carti. "<<endl;
+    cout<<"Culoarea cartilor nu este importanta in acest joc"<<endl;
+    cout<<"Cartile intre 2 si 10 au valoarea scrise pe ele, figurile au valoarea 10, asul poate fi 1 sau 11 dupa preferinta jucatorului. "<<endl;
+    cout<<"Castigatorul acesui joc este acel jucator care se apropie cat mai mult de 21 de puncte ,dar fara sa depaseasca 21 de puncte"<<endl;
+    cout<<"Cel care depaseste 21 de puncte nu mai are sanse de castig"<<endl<<endl;
+    cout<<"Player VS Player"<<endl;
+    cout<<"Jucatorii primesc cate 2 carti , iar acestia hotarasc daca mai doresc carti"<<endl;
+    cout<<"Hit-mai vreau o carte"<<endl;
+    cout<<"Stay-oprire";
+    cout<<"Jucatorii pot paria o miza"<<endl;
+    cout<<"Daca un jucator ramane fara $, jocul incepe iarasi cu 1000$ pentru ambii jucatori "<<endl<<endl;
+    cout<<"Player VS Computer"<<endl;
+    cout<<"In cazul in care obtine blackjack(cea mai puternica mana a acestui joc ),acesta primeste 1,5*miza"<<endl;
+    cout<<"Soft 17-Calculatorul trage inca o carte atata timp cat suma cartilor este mai mica decat 17."<<endl;
+    cout<<"Daca ajunge la suma 17 , acesta nu mai are voie sa primeasca carti"<<endl<<endl;
+    cout<<"Distractie placuta si mult noroc !!"<<endl;
     system("PAUSE");
     system("CLS");
 }
-/*char VerificareUsername(char nume[])
-{
-     unsigned int parcurgere,i;
-    for(parcurgere=0;parcurgere<strlen(nume);parcurgere++)
-        if(nume[parcurgere]==' ')
-        {
-            i=parcurgere;
-            while(i<strlen(nume)-1)
-            {
-                nume[i]=nume[i+1];
-                i++;
-            }
-            parcurgere--;
-        }
-}
-*/
 unsigned int Miza()
 {
     int i=0;
     bool ok=1;
     char miza[100];
     unsigned int bet=0;
-    cin>>miza;
+    gets(miza);
     while (ok)
     {
         if(i==strlen(miza)-1&&miza[i]>47&&miza[i]<58)
@@ -119,7 +116,7 @@ unsigned int Miza()
         if (i<strlen(miza))
             if(miza[i]<48||miza[i]>57)
         {
-            cin>>miza;
+           gets(miza);
             i=0;
         }
         else i++;
@@ -134,15 +131,15 @@ bool hitstay()
     cout<<"hit(h) sau stay(s): ";
     char hitorstay[30];
     bool ok=1;
-    cin>>hitorstay;
+    gets(hitorstay);
     while(ok)
     {
         while (strlen(hitorstay)>1)
-            cin>>hitorstay;
+            gets(hitorstay);
         if(hitorstay[0]=='h'||hitorstay[0]=='s')
             ok=0;
         else
-            cin>>hitorstay;
+           gets(hitorstay);
     }
     if(hitorstay[0]=='h')
         return 1;
@@ -226,12 +223,12 @@ unsigned int menu2( bool ok)
 {
     int alegere2;
     unsigned int miza;
-     char depasire[100];
+     char depasire[1000];
      system("color 02");
     cout<<"1. Continuare"<<endl;
     cout<<"2. Meniul principal"<<endl;
     cout<<"3. Iesire"<<endl;
-     cin>>depasire;
+     gets(depasire);
     if(strlen(depasire)>1)
         alegere2=0;
     else
@@ -240,7 +237,7 @@ unsigned int menu2( bool ok)
         else alegere2=0;
     while (alegere2!=1&&alegere2!=2&&alegere2!=3)
     {
-        cin>>depasire;
+       gets(depasire);
          if(strlen(depasire)>1)
         alegere2=0;
     else
@@ -253,10 +250,10 @@ unsigned int menu2( bool ok)
     {   if(ok)
        {
         if(jucator1.gold==0||jucator2.gold==0) jucator1.gold=jucator2.gold=1000;
-        else if(jucator1.gold==0) jucator1.gold=1000;
        }
        else
-        if(jucator1.gold==0) jucator1.gold=1000;jucator2.gold=30000;
+        if(jucator1.gold==0)
+        {jucator1.gold=1000;jucator2.gold=1000;}
         cout<<"Miza("<<jucator1.gold<<") "<<jucator1.username<<": ";
         jucator1.bet=Miza();
         if(jucator1.bet>jucator1.gold)
@@ -318,6 +315,8 @@ void partida(unsigned int miza)
             sumacartilor=sumacartilor+CARTI[parcurgere+1].numar;
         if(sumacartilor==21) bj++;
         parcurgere++;
+         if(sumacartilor>21)
+            sumacartilor=sumacartilor-10;
         cout<<sumacartilor<<")"<<endl;;
         if(bj==0)
         {
@@ -373,6 +372,8 @@ void partida(unsigned int miza)
             else
                 sumajuc2=sumajuc2+CARTI[j].numar;
     }
+     if(sumajuc2>21)
+            sumajuc2=sumajuc2-10;
     cout<<"("<<sumajuc2<<")"<<endl;
     if(sumajuc2==21&&bj==1) bj++;
     else
@@ -421,12 +422,11 @@ void partida(unsigned int miza)
 unsigned int playerVSplayer()
 {
     unsigned int miza;
-    cout<<"Username jucator 1(fara spatii): ";
-    cin>>jucator1.username;
-    //jucator1.username=VerificareUsername(jucator1.username);
+    cout<<"Username jucator 1: ";
+    gets(jucator1.username);
     cout<<endl;
-    cout<<"Username jucator 2(fara spatii): ";
-    cin>>jucator2.username;
+    cout<<"Username jucator 2: ";
+    gets(jucator2.username);
     cout<<endl;
     cout<<"Miza("<<jucator1.gold<<") "<<jucator1.username<<": ";
     jucator1.bet=Miza();
@@ -486,7 +486,7 @@ void rezultat(unsigned int miza, unsigned int parcurgere,unsigned int retparcurg
     if(castigator==1&&bj==1)
     {
         cout<<"Castigatorul este "<<jucator1.username<<"!"<<" BLACKJACK";
-        jucator1.gold+=miza;
+        jucator1.gold+=miza*1.5;
     }
     else
         if(castigator==1)
@@ -542,6 +542,8 @@ void rezultat(unsigned int miza, unsigned int parcurgere,unsigned int retparcurg
             sumacartilor=sumacartilor+CARTI[parcurgere+1].numar;
         if(sumacartilor==21) bj++;
         parcurgere++;
+        if(sumacartilor>21)
+            sumacartilor=sumacartilor-10;
         cout<<sumacartilor<<")"<<endl;;
         if(bj==0)
         {
@@ -598,6 +600,8 @@ void rezultat(unsigned int miza, unsigned int parcurgere,unsigned int retparcurg
     if(sumacomp==21&&bj==1) bj++;
     else
         if(sumacomp==21) bj=3;
+         if(sumacomp>21)
+            sumacomp=sumacomp-10;
     if(bj==0||bj==1)
     {
         ok=1;
@@ -637,10 +641,9 @@ unsigned int playerVScomputer()
 {
 
      unsigned int miza;
-     jucator2.gold=30000;
-    cout<<"Username jucator (fara spatii): ";
-    cin>>jucator1.username;
-    //jucator1.username=VerificareUsername(jucator1.username);
+     jucator2.gold=1000;
+    cout<<"Username jucator: ";
+    gets(jucator1.username);
     cout<<endl;
       cout<<"Miza("<<jucator1.gold<<") "<<jucator1.username<<": ";
     jucator1.bet=Miza();

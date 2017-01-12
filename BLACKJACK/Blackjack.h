@@ -8,7 +8,7 @@
 using namespace std;
 
 unsigned int Pachet[MAX_CARTE];
- unsigned int alegere;
+unsigned int alegere;
 struct Carte
 {
      unsigned int numar ;
@@ -17,7 +17,7 @@ struct Carte
 Carte CARTI[100];
 struct Player
 {
-    char username[40];
+    char username[100];
     int gold=1000;
     unsigned int bet;
 };
@@ -30,7 +30,6 @@ void CreareCarte();
 unsigned int menu ();
 void ReguliJoc();
 unsigned int playerVSplayer();
-//char VerificareUsername (char nume[]);
 unsigned int Miza();
 void partida(unsigned int miza);
 bool hitstay();
