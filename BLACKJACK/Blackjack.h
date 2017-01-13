@@ -18,8 +18,9 @@ Carte CARTI[100];
 struct Player
 {
     char username[100];
-    int gold=1000;
+    unsigned int gold=1000;
     unsigned int bet;
+    unsigned int score=0;
 };
 Player jucator1;
 Player jucator2;
